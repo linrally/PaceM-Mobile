@@ -1,14 +1,15 @@
 import React from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import SpotifyButton from '../components/SpotifyButton';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const handlePress = () => {
-    console.log('Button Pressed');
+    navigation.navigate('Dashboard');
   };
 
   return (
     <View style={styles.container}>
-      <Button title="Sign In" onPress={handlePress} />
+      <SpotifyButton onPress={handlePress}/>
     </View>
   );
 };
