@@ -15,11 +15,11 @@ const StylizedModal = ({ isVisible, hideModal, content }) => {
         <View style={styles.modalContent}>
           <Text style={styles.modalText}>{content}</Text>
           <InputField
-            placeholder="Enter Height"
+            placeholder="Enter Target Pace"
             keyboardType="numeric"
           />
           <InputField
-            placeholder="Enter Height"
+            placeholder="Enter Target Distance"
             keyboardType="numeric"
           />
           <Button onPress={hideModal}>
@@ -36,12 +36,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: '#000',
   },
   modalContent: {
-    backgroundColor: 'rgba(82, 22, 41, 1)',
+    backgroundColor: '#000',
     padding: 20,
     borderRadius: 50,
+    borderWidth: 7,
     alignItems: 'center',
     width: '80%',
   },
