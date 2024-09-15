@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Image, Alert } from 'react-native';
 import axios from 'axios';
 import InputField from '../components/InputField';
 import Button from '../components/Button'; // Import the custom button
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AboutYou = ({ navigation }) => {
   const [gender, setGender] = useState('');
@@ -18,13 +19,12 @@ const AboutYou = ({ navigation }) => {
     setLoading(true);
 
     try {
-      // Replace with your actual backend URL
-      const response = await axios.post('http://localhost:3000/', {
+      const response = await axios.post('http://localhost:3000/createUser', {
         gender,
         height,
       });
-      console.log('Data sent to the backend:', response.data);
-      // Navigate to Dashboard if successful
+      const userId = response.data.data.insertedId;
+      await AsyncStorage.setItem('userId', userId);
       navigation.navigate('Dashboard');
     } catch (error) {
       console.error('Error posting data:', error);
@@ -41,22 +41,19 @@ const AboutYou = ({ navigation }) => {
 
       <Text style={styles.title}>About You</Text>
 
-      {/* Gender Input */}
       <InputField
         placeholder="Enter Gender"
         value={gender}
         onChangeText={(text) => setGender(text)}
       />
 
-      {/* height Input */}
       <InputField
-        placeholder="Enter Height"
+        placeholder="Enter Height (in)"
         keyboardType="numeric"
         value={height}
         onChangeText={(text) => setHeight(text)}
       />
 
-      {/* Submit Button */}
       <Button onPress={handlePress}>
         <Text style={styles.submitText}>{loading ? 'Submitting...' : 'Submit'}</Text>
       </Button>

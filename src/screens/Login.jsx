@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import SpotifyButton from '../components/SpotifyIcon';
 import Button from '../components/Button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
   const handlePress = () => {
     navigation.navigate('About You');
   };
+
+  const checkUserId = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    if (userId) {
+      navigation.navigate('Dashboard');
+    }
+  };
+
+  useEffect(() => {
+    checkUserId();
+  }, []);
 
   return (
     <View style={styles.container}>

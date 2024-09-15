@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import MenuSvg from './MenuSvg';
 
-const MenuWithButtons = () => {
+const MenuWithButtons = ({onHomePress, onRevPress, onPlayPress, onFFPress, onProfilePress}) => {
   return (
     <View style={styles.container}>
       {/* Background image for the menu */}
@@ -13,7 +13,7 @@ const MenuWithButtons = () => {
       <View style={styles.buttonContainer}>
         {/* Button 1 - Home */}
         <TouchableOpacity
-          onPress={() => console.log('Button 1 Pressed')}
+          onPress={onHomePress}
           style={styles.button}>
           <Image
             source={require('../assets/Home.png')}
@@ -23,7 +23,7 @@ const MenuWithButtons = () => {
 
         {/* Button 2 - Left Play */}
         <TouchableOpacity
-          onPress={() => console.log('Button 2 Pressed')}
+          onPress={onRevPress}
 >
           <Image
             source={require('../assets/LeftPlay.png')}
@@ -33,7 +33,7 @@ const MenuWithButtons = () => {
 
         {/* Button 3 - Center Ball */}
         <TouchableOpacity
-          onPress={() => console.log('Button 3 Pressed')}
+          onPress={onPlayPress}
           >
           <Image
             source={require('../assets/CenterIconBackground.png')}
@@ -43,7 +43,7 @@ const MenuWithButtons = () => {
 
         {/* Button 4 - Right Play */}
         <TouchableOpacity
-          onPress={() => console.log('Button 4 Pressed')}
+          onPress={onFFPress}
 >
           <Image
             source={require('../assets/RightPlay.png')}
@@ -53,7 +53,7 @@ const MenuWithButtons = () => {
 
         {/* Button 5 - Profile */}
         <TouchableOpacity
-          onPress={() => console.log('Button 5 Pressed')}
+          onPress={onProfilePress}
           style={styles.button}>
           <Image
             source={require('../assets/Profile.png')}
