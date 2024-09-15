@@ -14,15 +14,8 @@ const Dashboard = () => {
           <Text style={styles.targetPaceStats}>7'30''</Text>
         </View>
         <View style={styles.targetContainer}>
-        <LinearGradient
-        colors={['#E24A60', 'rgba(255, 129, 171, 0.95)']} // Gradient colors
-        start={{ x: 0.5, y: 0 }} // Start from the top
-        end={{ x: 0.5, y: 1 }}   // End at the bottom
-        style={styles.gradientBackground}
-      >
-          <Text style={styles.targetPaceHeader}>Current Pace</Text>
-          <Text style={styles.targetPaceStats}>7'56''</Text>
-          </LinearGradient>
+          <Text style={styles.currentPaceHeader}>Current Pace</Text>
+          <Text style={styles.currentPaceStats}>7'56''</Text>
         </View>
       </View>
 
@@ -81,23 +74,21 @@ const styles = StyleSheet.create({
     textShadowRadius: 14, // The blur radius of the shadow
   },
   currentPaceHeader: {
-    color: 'white',
+    color: '#FE73A1',
     fontSize: 15,
     marginBottom: 5,
     fontFamily: 'Poppins-Regular',
-    color: '#F2F2F2', // Text color
-    textShadowColor: '#FFF', // Shadow color
-    textShadowOffset: { width: 0, height: 0 }, // No horizontal or vertical offset
-    textShadowRadius: 14, // The blur radius of the shadow
+    textShadowColor: '#E22A67', // Shadow color
+    textShadowOffset: { width: 0, height: 0 }, // No offset for shadow
+    textShadowRadius: 23.6, // Blur radius
   },
-  currentPaceHeader: {
-    color: 'white',
+  currentPaceStats: {
+    color: '#FE73A1',
     fontSize: 40,
     fontFamily: 'Poppins-Bold',
-    color: '#F2F2F2', // Text color
-    textShadowColor: '#FFF', // Shadow color
-    textShadowOffset: { width: 0, height: 0 }, // No horizontal or vertical offset
-    textShadowRadius: 14, // The blur radius of the shadow
+    textShadowColor: '#E22A67', // Shadow color
+    textShadowOffset: { width: 0, height: 0 }, // No offset for shadow
+    textShadowRadius: 23.6, // Blur radius
   },
   menu: {
     flexDirection: 'row',
