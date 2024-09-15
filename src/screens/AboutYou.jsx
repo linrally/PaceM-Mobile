@@ -1,20 +1,23 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import SpotifyButton from '../components/SpotifyIcon';
 import Button from '../components/Button';
+import InputField from '../components/InputField';
 
-const Login = ({navigation}) => {
+const AboutYou = ({navigation}) => {
   const handlePress = () => {
-    navigation.navigate('About You');
+    navigation.navigate('Dashboard');
   };
 
   return (
     <View style={styles.container}>
         <Image source={require('../assets/images/blob-tl.png')} style={styles.blobTL} />
         <Image source={require('../assets/images/blob-br.png')} style={styles.blobBR} />
-        <Text style={styles.title}>Sign In</Text>
+        <Text style={styles.title}>About You</Text>
+        <InputField placeholder="Gender"/>
+        <InputField placeholder="Height"/>
+        <InputField placeholder="Weight"/>
         <Button onPress={handlePress}>
-            <SpotifyButton/>
+            <Text style={styles.submitText}>Submit</Text>
         </Button>
     </View>
   );
@@ -26,13 +29,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#000',
-    paddingBottom: 100,
-  },
-  title: {
-    fontSize: 30,
-    color: '#fff',
-    fontFamily: 'Poppins-Bold',
-    marginBottom: 45,
   },
   blobTL: {
     position: 'absolute',
@@ -48,6 +44,20 @@ const styles = StyleSheet.create({
     width: 400,
     height: 400,
   },
+  title: {
+    fontSize: 30,
+    color: '#fff',
+    fontFamily: 'Poppins-Bold',
+    marginBottom: 45,
+  },
+  submitText: {
+    fontSize: 18,
+    color: '#fff',
+    fontFamily: 'Poppins-Bold',
+  },
+  inputField: {
+    marginBottom: 24,
+  },
 });
 
-export default Login;
+export default AboutYou;
