@@ -14,8 +14,8 @@ const AboutYou = ({navigation}) => {
         <Image source={require('../assets/images/blob-br.png')} style={styles.blobBR} />
         <Text style={styles.title}>About You</Text>
         <InputField placeholder="Gender"/>
-        <InputField placeholder="Height"/>
-        <InputField placeholder="Weight"/>
+        <InputField placeholder="Height" keyboardType="numeric"/>
+        <InputField placeholder="Weight" keyboardType="numeric"/>
         <Button onPress={handlePress}>
             <Text style={styles.submitText}>Submit</Text>
         </Button>
