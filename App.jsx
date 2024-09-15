@@ -7,10 +7,22 @@ import AboutYou from './src/screens/AboutYou';
 
 const Stack = createNativeStackNavigator();
 
+const linking = {
+  prefixes: ['myapp://'],
+  config: {
+    screens: {
+      Login: 'login', //can change
+      Dashboard: 'dashboard',
+      AboutYou: 'about-you',
+    },
+  },
+};
+
 const App = () => {
   return (
-    <NavigationContainer initialRouteName="Login">
+    <NavigationContainer linking={linking}>
       <Stack.Navigator
+        initialRouteName="Login"
         screenOptions={{
           headerShown: false,
         }}
