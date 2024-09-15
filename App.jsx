@@ -4,8 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/screens/Login';
 import Dashboard from './src/screens/Dashboard';
 import AboutYou from './src/screens/AboutYou';
-import { Linking } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 

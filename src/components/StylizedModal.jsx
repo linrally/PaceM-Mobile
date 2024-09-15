@@ -4,6 +4,7 @@
   import InputField from './InputField';
   import AsyncStorage from '@react-native-async-storage/async-storage';
   import moment from 'moment';
+  import axios from 'axios';
 
   const StylizedModal = ({ isVisible, hideModal, content }) => {
     const [targetPace, setTargetPace] = useState('');
@@ -16,13 +17,36 @@
       return expireTime;
     };
 
+    async function getOnePlaylist() {
+      let accessToken = await AsyncStorage.getItem('authToken');
+      const response = await fetch('https://api.spotify.com/v1/me/playlists', {
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+        }
+      });
+      const data = await response.json();
+      return data.items[0].id;
+    }
+
+    const generatePlaylist = async () => {
+      const pid = await getOnePlaylist();
+      console.log(`Found playlist ${pid}`);
+      const response = await axios.get('http://localhost:3000/recs', {
+        params: {
+          pid: pid,
+        },
+      });
+      console.log(response);
+    }
+
     const handleSubmit = async () => {
       if (!targetPace || !targetDistance) {
         Alert.alert('Error', 'Please fill in all fields');
         return;
       }
       else if( !moment(targetPace, 'mm:ss', true).isValid()){
-        Alert.alert('Error', `The time ${targetPace} is not valid.`)
+        Alert.alert('Error', `The time ${targetPace} is not valid.`);
+        return;
       }
       const expireTime = calculateExpireTime(targetPace);
       const runData = {
@@ -32,6 +56,7 @@
         isRunning: true,
       };
       await AsyncStorage.setItem('runData', JSON.stringify(runData));
+      await generatePlaylist();
       hideModal();
     };
 

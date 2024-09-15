@@ -21,25 +21,11 @@ const calculateBPM = (distance, stride, paceInMinutes) => {
   return Math.round(steps / paceInMinutes);
 };
 
-
-async function getProfile() {
-  let accessToken = await AsyncStorage.getItem('authToken');
-  const response = await fetch('https://api.spotify.com/v1/me', {
-    headers: {
-      Authorization: 'Bearer ' + accessToken,
-    }
-  });
-  const data = await response.json();
-  console.log(data);
-}
-
 const Dashboard = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userData, setUserData] = useState(null);
   const [runData, setRunData] = useState(null);
   const [targetBPM, setTargetBPM] = useState(null);
-
-  getProfile();
 
   const handlePress = () => {
     setModalVisible(true);
@@ -67,7 +53,37 @@ const Dashboard = ({navigation}) => {
       }
     } catch (error) {
       console.error('Error retrieving run data from AsyncStorage:', error);
-    } 
+    }
+  };
+
+  async function startPlayback(uris, deviceId = null, contextUri = null, offset = null, positionMs = 0) {
+    let accessToken = await AsyncStorage.getItem('authToken');
+    const body = {};
+    if (contextUri) {
+      body.context_uri = contextUri;
+    }
+    if (uris) {
+      body.uris = uris;
+    }
+    if (offset) {
+      body.offset = offset;
+    }
+    if (positionMs) {
+      body.position_ms = positionMs;
+    }
+    const deviceQueryParam = deviceId ? `?device_id=${deviceId}` : '';
+    const response = await axios.put(`https://api.spotify.com/v1/me/player/play${deviceQueryParam}`, body, {
+      headers: {
+        Authorization: 'Bearer ' + accessToken,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('Playback started successfully:', response.data);
+  }
+
+  const handlePlayPress = async () => {
+    await startPlayback(['spotify:track:4iV5W9uYEdYUVa79Axb7Rh', 'spotify:track:1301WleyT98MSxVHPZCA6M']);
+    // test
   };
 
   const handleHomePress = async () => {
@@ -75,15 +91,19 @@ const Dashboard = ({navigation}) => {
     navigation.navigate('Login');
   };
 
+  const handleProfilePress = async () => {
+    if (runData !== null) {
+      console.log(runData?.isRunning);
+      const newData = {};
+      await AsyncStorage.setItem('runData', JSON.stringify(newData));
+    }
+  };
+
   useEffect(() => {
     const getUserId = async () => {
-      try {
-        const userId = await AsyncStorage.getItem('userId');
-        if (userId) {
-          fetchUserData(userId);
-        }
-      } catch (error) {
-        console.error('Error retrieving userId from AsyncStorage:', error);
+      const userId = await AsyncStorage.getItem('userId');
+      if (userId) {
+        await fetchUserData(userId);
       }
     };
     getUserId();
@@ -111,9 +131,16 @@ const Dashboard = ({navigation}) => {
           <Text style={styles.currentPaceStats}>{targetBPM || 'N/A'}</Text>
         </View>
       </View>
-      <View style={styles.heartButtonContainer}>
-        <HeartButton onPress={handlePress}/>
-      </View>
+      { (runData && runData?.isRunning === true) ?
+        (
+          <Text>Hello</Text>
+        ) :
+        (
+          <View style={styles.heartButtonContainer}>
+            <HeartButton onPress={handlePress}/>
+          </View>
+        )
+      }
 
       <StylizedModal
         isVisible={modalVisible}
@@ -122,7 +149,7 @@ const Dashboard = ({navigation}) => {
       />
 
       <View style={styles.menu}>
-        <MenuContainer onHomePress={handleHomePress}/>
+        <MenuContainer onHomePress={handleHomePress} onPlayPress={handlePlayPress} onProfilePress={handleProfilePress}/>
       </View>
     </View>
   );

@@ -9,7 +9,7 @@ const { SPOTIFY_CLIENT_ID, SPOTIFY_REDIRECT_URI, SPOTIFY_AUTH_ENDPOINT, SPOTIFY_
   SPOTIFY_CLIENT_ID: "62028a42bb1b4872ac6ff9f2a9bf5451",
   SPOTIFY_REDIRECT_URI: "pulse://dashboard",
   SPOTIFY_AUTH_ENDPOINT: "https://accounts.spotify.com/authorize",
-  SPOTIFY_SCOPES: "user-read-email user-read-private playlist-read-private",
+  SPOTIFY_SCOPES: "user-read-email user-read-private playlist-read-private user-modify-playback-state",
   SPOTIFY_CLIENT_SECRET: "1ae23912391f466f95bbbc3ff9f91426"
 };
 
