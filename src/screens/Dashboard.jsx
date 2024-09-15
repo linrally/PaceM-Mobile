@@ -1,11 +1,30 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import MenuContainer from '../components/MenuContainer';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 const Dashboard = () => {
   return (
     <View style={styles.container}>
       {/* Dashboard content */}
+      <View style={styles.paceStats}> 
+        <View style={styles.targetContainer}>
+          <Text style={styles.targetPaceHeader}>Target Pace</Text>
+          <Text style={styles.targetPaceStats}>7'30''</Text>
+        </View>
+        <View style={styles.targetContainer}>
+        <LinearGradient
+        colors={['#E24A60', 'rgba(255, 129, 171, 0.95)']} // Gradient colors
+        start={{ x: 0.5, y: 0 }} // Start from the top
+        end={{ x: 0.5, y: 1 }}   // End at the bottom
+        style={styles.gradientBackground}
+      >
+          <Text style={styles.targetPaceHeader}>Current Pace</Text>
+          <Text style={styles.targetPaceStats}>7'56''</Text>
+          </LinearGradient>
+        </View>
+      </View>
 
       {/* Bottom menu */}
       <View style={styles.menu}>
@@ -18,21 +37,67 @@ const Dashboard = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'black',
-    flex: 1,
+    flex: 1, // This ensures the container fills the screen
     justifyContent: 'space-between',
-    backgroundColor: '#f5f5f5',
     width: '100%',
     height: '100%',
-    position:'relative',
+    position: 'relative',
+    paddingTop: 100,
   },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  paceStats: {
+    flexDirection: 'row',
+    justifyContent: 'center', // Center the child horizontally
+    alignItems: 'center', // Center the child vertically
+    marginTop: 50, // Space from the top
+    paddingHorizontal: 20, // Padding around the text for better spacing
+    zIndex: 1, // Ensure it's above other components if needed
   },
-  dashboardText: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  targetContainer: {
+    display: 'flex',
+    alignItems: 'center', // Center the content horizontally
+    justifyContent: 'center', // Center the content vertically
+    gap: 10,
+    width: 130,
+    height: 100,
+    
+  },
+  targetPaceHeader: {
+    color: 'white',
+    fontSize: 15,
+    marginBottom: 5,
+    fontFamily: 'Poppins-Regular',
+    color: '#F2F2F2', // Text color
+    textShadowColor: '#FFF', // Shadow color
+    textShadowOffset: { width: 0, height: 0 }, // No horizontal or vertical offset
+    textShadowRadius: 14, // The blur radius of the shadow
+  },
+  targetPaceStats: {
+    color: 'white',
+    fontSize: 40,
+    fontFamily: 'Poppins-Bold',
+    color: '#F2F2F2', // Text color
+    textShadowColor: '#FFF', // Shadow color
+    textShadowOffset: { width: 0, height: 0 }, // No horizontal or vertical offset
+    textShadowRadius: 14, // The blur radius of the shadow
+  },
+  currentPaceHeader: {
+    color: 'white',
+    fontSize: 15,
+    marginBottom: 5,
+    fontFamily: 'Poppins-Regular',
+    color: '#F2F2F2', // Text color
+    textShadowColor: '#FFF', // Shadow color
+    textShadowOffset: { width: 0, height: 0 }, // No horizontal or vertical offset
+    textShadowRadius: 14, // The blur radius of the shadow
+  },
+  currentPaceHeader: {
+    color: 'white',
+    fontSize: 40,
+    fontFamily: 'Poppins-Bold',
+    color: '#F2F2F2', // Text color
+    textShadowColor: '#FFF', // Shadow color
+    textShadowOffset: { width: 0, height: 0 }, // No horizontal or vertical offset
+    textShadowRadius: 14, // The blur radius of the shadow
   },
   menu: {
     flexDirection: 'row',
@@ -41,18 +106,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopWidth: 1,
     borderTopColor: '#ddd',
-    paddingVertical: 10,
+    paddingTop: 10,
     bottom: 0,
-    position:'absolute',
-  },
-  menuButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-  },
-  menuText: {
-    fontSize: 14,
-    color: '#333',
+    position: 'absolute',
+    width: '100%',
   },
 });
 

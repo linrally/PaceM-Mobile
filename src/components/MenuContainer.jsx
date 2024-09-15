@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import MenuSvg from './MenuSvg';
 
 const MenuWithButtons = () => {
@@ -10,56 +10,54 @@ const MenuWithButtons = () => {
         <MenuSvg />
       </View>
 
-      {/* <Image source={require('../assets/MenuBG.png')} style={styles.backgroundImage} /> */}
-
       <View style={styles.buttonContainer}>
-        {/* Button 1 */}
+        {/* Button 1 - Home */}
         <TouchableOpacity
           onPress={() => console.log('Button 1 Pressed')}
           style={styles.button}>
           <Image
-            source={require('../assets/HomeIcon.png')}
-            style={styles.buttonImage}
+            source={require('../assets/Home.png')}
+            style={styles.smallButtonImage} // Use smaller style for Home icon
           />
         </TouchableOpacity>
 
-        {/* Button 2 */}
+        {/* Button 2 - Left Play */}
         <TouchableOpacity
           onPress={() => console.log('Button 2 Pressed')}
-          style={styles.button}>
+>
           <Image
-            source={require('../assets/LeftIcon.png')}
+            source={require('../assets/LeftPlay.png')}
             style={styles.buttonImage}
           />
         </TouchableOpacity>
 
-        {/* Button 3 */}
+        {/* Button 3 - Center Ball */}
         <TouchableOpacity
           onPress={() => console.log('Button 3 Pressed')}
-          style={styles.button}>
+          >
           <Image
-            source={require('../assets/CenterBallIcon.png')}
-            style={styles.buttonImage}
+            source={require('../assets/CenterIconBackground.png')}
+            style={styles.largeButtonImage}
           />
         </TouchableOpacity>
 
-        {/* Button 4 */}
+        {/* Button 4 - Right Play */}
         <TouchableOpacity
           onPress={() => console.log('Button 4 Pressed')}
-          style={styles.button}>
+>
           <Image
-            source={require('../assets/RightIcon.png')}
+            source={require('../assets/RightPlay.png')}
             style={styles.buttonImage}
           />
         </TouchableOpacity>
 
-        {/* Button 5 */}
+        {/* Button 5 - Profile */}
         <TouchableOpacity
           onPress={() => console.log('Button 5 Pressed')}
           style={styles.button}>
           <Image
-            source={require('../assets/ProfileIcon.png')}
-            style={styles.buttonImage}
+            source={require('../assets/Profile.png')}
+            style={styles.smallButtonImage} // Use smaller style for Profile icon
           />
         </TouchableOpacity>
       </View>
@@ -80,41 +78,53 @@ const styles = StyleSheet.create({
   backgroundImage: {
     position: 'absolute',
     bottom: 0,
-    // width: '100%',
-    // height: '400px',
-    // resizeMode: 'cover', // Cover the screen without distorting the image
-    width: '494.098px',
+    width: '100%',
     height: '124.405px',
     fill: '#1F060E',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems:'center',
 
     // Shadow for iOS
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: -5}, // Similar to 0px -5px in CSS
-    shadowOpacity: 0.42, // Opacity of the shadow
-    shadowRadius: 113, // Blurriness of the shadow
+    shadowOffset: { width: 0, height: -5 },
+    shadowOpacity: 0.42,
+    shadowRadius: 113,
 
-    // Elevation for Android (since Android doesn't support shadow properties)
-    elevation: 20, // Elevation value can be adjusted for the depth of the shadow
+    // Elevation for Android (shadow)
+    elevation: 20,
   },
   buttonContainer: {
     width: '100%',
     height: '100px',
-    bottom: 20,
+    bottom: 10,
     position: 'absolute',
     justifyContent: 'center',
-    alignItems: 'space-between',
-    marginLeft: '20px',
-    marginRight: '20px',
+    alignItems: 'center',
+    paddingLeft: '20px',
+    paddingRight: '20px',
     display: 'flex',
     flexDirection: 'row',
   },
   button: {
-    margin: 10,
+    marginLeft: 20,
+    marginRight: 20,
   },
   buttonImage: {
     width: 60,
-    height: 60, // Adjust button size as necessary
-    resizeMode: 'contain', // Maintain the aspect ratio of button images
+    height: 60, // Default size for buttons
+    resizeMode: 'contain',
+  },
+  smallButtonImage: {
+    width: 30, // Smaller size for Home and Profile
+    height: 30,
+    resizeMode: 'contain',
+  },
+  largeButtonImage: {
+    width: 140, // Smaller size for Home and Profile
+    height: 140,
+    resizeMode: 'contain',
+    margin: 0,
   },
 });
 
