@@ -11,9 +11,9 @@ const linking = {
   prefixes: ['myapp://'],
   config: {
     screens: {
-      Login: 'login', //can change
-      Dashboard: 'dashboard',
-      AboutYou: 'about-you',
+      Login: 'login',
+      Dashboard: 'dashboard', // Updated to 'dashboard' to match second sample
+      AboutYou: 'about-you',  // Added screen for deep linking
     },
   },
 };
@@ -21,15 +21,10 @@ const linking = {
 const App = () => {
   return (
     <NavigationContainer linking={linking}>
-      <Stack.Navigator
-        initialRouteName="Login"
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
-        <Stack.Screen name="About You" component={AboutYou} />
+        <Stack.Screen name="AboutYou" component={AboutYou} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     
   },
   targetPaceHeader: {
-    color: 'white',
     fontSize: 15,
     marginBottom: 5,
     fontFamily: 'Poppins-Regular',
@@ -65,7 +64,6 @@ const styles = StyleSheet.create({
     textShadowRadius: 14, // The blur radius of the shadow
   },
   targetPaceStats: {
-    color: 'white',
     fontSize: 40,
     fontFamily: 'Poppins-Bold',
     color: '#F2F2F2', // Text color
