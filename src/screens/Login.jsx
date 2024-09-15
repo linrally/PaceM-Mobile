@@ -1,12 +1,43 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, Image, Linking } from 'react-native';
 import SpotifyButton from '../components/SpotifyIcon';
 import Button from '../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const { SPOTIFY_CLIENT_ID, SPOTIFY_REDIRECT_URI, SPOTIFY_AUTH_ENDPOINT, SPOTIFY_SCOPES } = { // DID NOT USE ENV TODO
+  SPOTIFY_CLIENT_ID: "62028a42bb1b4872ac6ff9f2a9bf5451",
+  SPOTIFY_REDIRECT_URI: "pulse://dashboard",
+  SPOTIFY_AUTH_ENDPOINT: "https://accounts.spotify.com/authorize",
+  SPOTIFY_SCOPES: "user-read-email user-read-private playlist-read-private"
+};
+
+const spotifyAuthURL = `${SPOTIFY_AUTH_ENDPOINT}?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${SPOTIFY_REDIRECT_URI}&response_type=code&scope=${SPOTIFY_SCOPES}`;
+
 const Login = ({navigation}) => {
+  useEffect(() => {
+    const handleDeepLink = async(event) => {
+      const { url } = event;
+      console.log('Deep link received:', url);
+      if (url && url.startsWith('pulse://dashboard')) {
+        const urlParts = url.split('?');
+        const query = urlParts[1];
+        const token = query.slice(5);
+        if (token) {
+          console.log(token);
+          await AsyncStorage.setItem('authToken', token);
+          navigation.navigate('About You');
+        }
+      }
+    };
+    Linking.addEventListener('url', handleDeepLink);
+    return () => {
+      Linking.removeEventListener('url', handleDeepLink);
+    };
+  });
+
   const handlePress = () => {
-    navigation.navigate('About You');
+    console.log(`Request sent to ${spotifyAuthURL}`);
+    Linking.openURL(spotifyAuthURL);
   };
 
   const checkUserId = async () => {
