@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MenuContainer from '../components/MenuContainer';
-import LinearGradient from 'react-native-linear-gradient';
+import HeartButton from '../components/HeartButton';
+import StylizedModal from '../components/StylizedModal';
 
 
 const Dashboard = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handlePress = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       {/* Dashboard content */}
@@ -18,6 +29,16 @@ const Dashboard = () => {
           <Text style={styles.currentPaceStats}>7'56''</Text>
         </View>
       </View>
+      
+      <View style={styles.heartButtonContainer}>
+        <HeartButton onPress={handlePress}/>
+      </View>
+
+      <StylizedModal
+        isVisible={modalVisible}
+        hideModal={closeModal}
+        content="Heart Button Pressed!"
+      />
 
       {/* Bottom menu */}
       <View style={styles.menu}>
@@ -101,6 +122,11 @@ const styles = StyleSheet.create({
     bottom: 0,
     position: 'absolute',
     width: '100%',
+  },
+  heartButtonContainer: {
+    flex: 1, 
+    alignItems: 'center',
+    marginTop: 40
   },
 });
 
