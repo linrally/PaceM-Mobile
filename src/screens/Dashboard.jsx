@@ -21,11 +21,25 @@ const calculateBPM = (distance, stride, paceInMinutes) => {
   return Math.round(steps / paceInMinutes);
 };
 
+
+async function getProfile() {
+  let accessToken = await AsyncStorage.getItem('authToken');
+  const response = await fetch('https://api.spotify.com/v1/me', {
+    headers: {
+      Authorization: 'Bearer ' + accessToken,
+    }
+  });
+  const data = await response.json();
+  console.log(data);
+}
+
 const Dashboard = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userData, setUserData] = useState(null);
   const [runData, setRunData] = useState(null);
   const [targetBPM, setTargetBPM] = useState(null);
+
+  getProfile();
 
   const handlePress = () => {
     setModalVisible(true);
