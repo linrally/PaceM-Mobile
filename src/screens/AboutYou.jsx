@@ -19,7 +19,7 @@ const AboutYou = ({ navigation }) => {
 
     try {
       // Replace with your actual backend URL
-      const response = await axios.post('http://localhost:5000/basic-info-backend', {
+      const response = await axios.post('http://localhost:3000/', {
         gender,
         height,
       });
