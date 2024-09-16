@@ -1,37 +1,71 @@
-import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Text, Image, Linking } from 'react-native';
 import SpotifyButton from '../components/SpotifyIcon';
 import Button from '../components/Button';
-import { authorize } from 'react-native-app-auth';
-import { SPOTIFY_CLIENT_ID, SPOTIFY_REDIRECT_URL } from 'react-native-dotenv';
-import { NativeModules } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import base64 from 'react-native-base64';
 
-console.log(NativeModules);
-
-const config = {
-  clientId: String(SPOTIFY_CLIENT_ID), // Your Spotify app's client ID
-  redirectUrl: String(SPOTIFY_REDIRECT_URL), // The redirect URL you set in the Spotify developer dashboard
-  scopes: ['user-read-email', 'playlist-modify-public', 'user-read-private'], // Spotify API scopes you need
-  serviceConfiguration: {
-    authorizationEndpoint: 'https://accounts.spotify.com/authorize',
-    tokenEndpoint: 'https://accounts.spotify.com/api/token',
-  },
+const { SPOTIFY_CLIENT_ID, SPOTIFY_REDIRECT_URI, SPOTIFY_AUTH_ENDPOINT, SPOTIFY_SCOPES, SPOTIFY_CLIENT_SECRET } = { // DID NOT USE ENV TODO
+  SPOTIFY_CLIENT_ID: "62028a42bb1b4872ac6ff9f2a9bf5451",
+  SPOTIFY_REDIRECT_URI: "pulse://dashboard",
+  SPOTIFY_AUTH_ENDPOINT: "https://accounts.spotify.com/authorize",
+  SPOTIFY_SCOPES: "user-read-email user-read-private playlist-read-private user-modify-playback-state",
+  SPOTIFY_CLIENT_SECRET: "1ae23912391f466f95bbbc3ff9f91426"
 };
 
-
-async function authenticateWithSpotify() {
-  try {
-    const authState = await authorize(config);
-    console.log('Authentication Successful:', authState);
-  } catch (error) {
-    console.error('Failed to authenticate with Spotify:', error);
-  }
-}
+const spotifyAuthURL = `${SPOTIFY_AUTH_ENDPOINT}?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${SPOTIFY_REDIRECT_URI}&response_type=code&scope=${SPOTIFY_SCOPES}`;
 
 const Login = ({navigation}) => {
+  useEffect(() => {
+    const handleDeepLink = async(event) => {
+      const { url } = event;
+      console.log('Deep link received:', url);
+      if (url && url.startsWith('pulse://dashboard')) {
+        const urlParts = url.split('?');
+        const query = urlParts[1];
+        const code = query.slice(5);
+        if (code) {
+          console.log("Authorization code:", code);
+          // Exchange authorization code for access token
+          const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Basic ' + base64.encode(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET),
+            },
+            body: `grant_type=authorization_code&code=${code}&redirect_uri=${SPOTIFY_REDIRECT_URI}`,
+          });
+          const tokenData = await tokenResponse.json();
+          console.log("Token Data:", tokenData);
+          if (tokenData.access_token) {
+            await AsyncStorage.setItem('authToken', tokenData.access_token);
+            navigation.navigate('About You');
+          }
+        }
+      }
+    };
+    Linking.addEventListener('url', handleDeepLink);
+    return () => {
+      Linking.removeEventListener('url', handleDeepLink);
+    };
+  });
+
   const handlePress = () => {
-    navigation.navigate('AboutYou'); // Updated name to match the Stack.Screen
+    console.log(`Request sent to ${spotifyAuthURL}`);
+    Linking.openURL(spotifyAuthURL);
   };
+
+  const checkUserId = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    if (userId) {
+      navigation.navigate('Dashboard');
+    }
+  };
+
+
+  useEffect(() => {
+    checkUserId();
+  }, []);
 
   return (
     <View style={styles.container}>
