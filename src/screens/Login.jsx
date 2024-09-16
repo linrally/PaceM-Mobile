@@ -72,7 +72,7 @@ const Login = ({navigation}) => {
         <Image source={require('../assets/images/blob-tl.png')} style={styles.blobTL} />
         <Image source={require('../assets/images/blob-br.png')} style={styles.blobBR} />
         <Text style={styles.title}>Sign In</Text>
-        <Button onPress={handlePress}>
+        <Button onPress={authenticateWithSpotify}>
             <SpotifyButton/>
         </Button>
     </View>
