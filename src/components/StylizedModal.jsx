@@ -6,7 +6,7 @@
   import moment from 'moment';
   import axios from 'axios';
 
-  const StylizedModal = ({ isVisible, hideModal, content }) => {
+  const StylizedModal = ({ isVisible, hideModal, content, modifyPlaylist }) => {
     const [targetPace, setTargetPace] = useState('');
     const [targetDistance, setTargetDistance] = useState('');
 
@@ -31,12 +31,13 @@
     const generatePlaylist = async () => {
       const pid = await getOnePlaylist();
       console.log(`Found playlist ${pid}`);
-      const response = await axios.get('http://localhost:3000/recs', {
+      /*const response = await axios.get('http://localhost:3000/recs', {
         params: {
           pid: pid,
         },
       });
-      console.log(response);
+      return response.data.recs;*/
+      return ['11dFghVXANMlKmJXsNCbNl', '7ouMYWpwJ422jRcDASZB7P', '2takcwOaAZWiXQijPHIx7B'];
     }
 
     const handleSubmit = async () => {
@@ -56,7 +57,8 @@
         isRunning: true,
       };
       await AsyncStorage.setItem('runData', JSON.stringify(runData));
-      await generatePlaylist();
+      const list = await generatePlaylist();
+      modifyPlaylist(list);
       hideModal();
     };
 

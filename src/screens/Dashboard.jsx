@@ -6,6 +6,7 @@ import StylizedModal from '../components/StylizedModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import moment from 'moment';
+import AlbumCover from '../components/AlbumCover';
 
 const convertPaceToMinutes = (pace) => {
   if (!pace) return null;
@@ -26,6 +27,7 @@ const Dashboard = ({navigation}) => {
   const [userData, setUserData] = useState(null);
   const [runData, setRunData] = useState(null);
   const [targetBPM, setTargetBPM] = useState(null);
+  const [playlist, setPlaylist] = useState(null);
 
   const handlePress = () => {
     setModalVisible(true);
@@ -82,8 +84,11 @@ const Dashboard = ({navigation}) => {
   }
 
   const handlePlayPress = async () => {
-    await startPlayback(['spotify:track:4iV5W9uYEdYUVa79Axb7Rh', 'spotify:track:1301WleyT98MSxVHPZCA6M']);
-    // test
+    if(playlist){
+      const uris = playlist.map(trackId => `spotify:track:${trackId}`);
+      console.log(uris);
+      await startPlayback(uris);
+    }
   };
 
   const handleHomePress = async () => {
@@ -93,11 +98,28 @@ const Dashboard = ({navigation}) => {
 
   const handleProfilePress = async () => {
     if (runData !== null) {
-      console.log(runData?.isRunning);
       const newData = {};
       await AsyncStorage.setItem('runData', JSON.stringify(newData));
     }
   };
+
+  /*const getImage = async (id) => {
+    let accessToken = await AsyncStorage.getItem('authToken');
+    const response = await axios.get(`https://api.spotify.com/v1/tracks/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    console.log(response);
+  };*/
+
+  const handleFFPress = async () => {
+    // DO SOMETHING
+  };
+
+  const handleRevPress = async () => {
+    // DO SOMETHING
+  }
 
   useEffect(() => {
     const getUserId = async () => {
@@ -133,7 +155,9 @@ const Dashboard = ({navigation}) => {
       </View>
       { (runData && runData?.isRunning === true) ?
         (
-          <Text>Hello</Text>
+          <View style={styles.albumCoverContainer}>
+            <AlbumCover source={require('../assets/images/example.png')}/>
+          </View>
         ) :
         (
           <View style={styles.heartButtonContainer}>
@@ -145,11 +169,12 @@ const Dashboard = ({navigation}) => {
       <StylizedModal
         isVisible={modalVisible}
         hideModal={closeModal}
+        modifyPlaylist={setPlaylist}
         content="Start Run"
       />
 
       <View style={styles.menu}>
-        <MenuContainer onHomePress={handleHomePress} onPlayPress={handlePlayPress} onProfilePress={handleProfilePress}/>
+        <MenuContainer onHomePress={handleHomePress} onPlayPress={handlePlayPress} onProfilePress={handleProfilePress} onFFPress={handleFFPress}/>
       </View>
     </View>
   );
@@ -180,7 +205,6 @@ const styles = StyleSheet.create({
     gap: 10,
     width: 130,
     height: 100,
-    
   },
   targetPaceHeader: {
     color: 'white',
@@ -231,6 +255,11 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   heartButtonContainer: {
+    flex: 1, 
+    alignItems: 'center',
+    marginTop: 40
+  },
+  albumCoverContainer: {
     flex: 1, 
     alignItems: 'center',
     marginTop: 40
