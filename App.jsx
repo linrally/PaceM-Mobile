@@ -7,6 +7,17 @@ import AboutYou from './src/screens/AboutYou';
 
 const Stack = createNativeStackNavigator();
 
+const linking = {
+  prefixes: ['myapp://'],
+  config: {
+    screens: {
+      Login: 'login',
+      Dashboard: 'dashboard', // Updated to 'dashboard' to match second sample
+      AboutYou: 'about-you',  // Added screen for deep linking
+    },
+  },
+};
+
 const App = () => {
   return (
     <NavigationContainer>
@@ -17,7 +28,7 @@ const App = () => {
       >
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
-        <Stack.Screen name="About You" component={AboutYou} />
+        <Stack.Screen name="AboutYou" component={AboutYou} />
       </Stack.Navigator>
     </NavigationContainer>
   );
