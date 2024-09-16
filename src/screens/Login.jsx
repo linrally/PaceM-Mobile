@@ -39,7 +39,7 @@ const Login = ({navigation}) => {
           console.log("Token Data:", tokenData);
           if (tokenData.access_token) {
             await AsyncStorage.setItem('authToken', tokenData.access_token);
-            navigation.navigate('About You');
+            navigation.navigate('AboutYou');
           }
         }
       }
@@ -72,7 +72,7 @@ const Login = ({navigation}) => {
         <Image source={require('../assets/images/blob-tl.png')} style={styles.blobTL} />
         <Image source={require('../assets/images/blob-br.png')} style={styles.blobBR} />
         <Text style={styles.title}>Sign In</Text>
-        <Button onPress={authenticateWithSpotify}>
+        <Button onPress={handlePress}>
             <SpotifyButton/>
         </Button>
     </View>
