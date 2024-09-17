@@ -25,5 +25,5 @@ yarn ios
 ## Contact Us
 * Rally Lin (rally.lin@duke.edu)
 * Andy Ko (andy.ko@duke.edu)
-* Emily Han (emilyhyf@stanford.edu
+* Emily Han (emilyhyf@stanford.edu)
 * Era Kalaja (ekalaja22@gmail.com)
