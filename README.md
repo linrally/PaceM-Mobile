@@ -17,7 +17,7 @@ Run setup script.
 - Docker
 - pipx
 - Poetry
-- yarn
+- Xcode
 
 ## Contact Us
 * Rally Lin (rally.lin@duke.edu)
