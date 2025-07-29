@@ -27,6 +27,8 @@
 		2260F0492E35DA3B00BA4CBB /* PaceM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaceM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2260F0592E35DA3B00BA4CBB /* PaceMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaceMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2260F0632E35DA3B00BA4CBB /* PaceMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaceMUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2282410B2E38830200AC3371 /* SharedUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SharedUI; path = "/Users/rallin/Desktop/03-Work/PaceM/libs/swift/SharedUI"; sourceTree = "<absolute>"; };
+		2282410C2E38838500AC3371 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = "/Users/rallin/Desktop/03-Work/PaceM/libs/swift/Utilities"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +77,8 @@
 		2260F0402E35DA3B00BA4CBB = {
 			isa = PBXGroup;
 			children = (
+				2282410C2E38838500AC3371 /* Utilities */,
+				2282410B2E38830200AC3371 /* SharedUI */,
 				2260F04B2E35DA3B00BA4CBB /* PaceM */,
 				2260F05C2E35DA3B00BA4CBB /* PaceMTests */,
 				2260F0662E35DA3B00BA4CBB /* PaceMUITests */,
