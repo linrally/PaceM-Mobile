@@ -19,6 +19,7 @@ httpx = "^0.28.1"
 pytest-cov = "^6.2.1"
 ruff = "^0.12.5"
 prettier = "^0.0.7"
+pre-commit = "^4.2.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
