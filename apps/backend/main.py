@@ -1,12 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
 
-app = FastAPI(
-    title="PaceM API",
-    description="PaceM Backend API",
-    version="1.0.0"
-)
+app = FastAPI(title="PaceM API", description="PaceM Backend API", version="1.0.0")
 
 # Add CORS middleware
 app.add_middleware(
@@ -17,11 +12,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to PaceM API"}
 
+
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
-
