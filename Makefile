@@ -6,6 +6,10 @@ base:
 backend:
 	docker-compose up backend
 
+.PHONY: db
+db:
+	docker-compose up -d db 
+
 .PHONY: test
 test:
 	pytest

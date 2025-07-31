@@ -14,13 +14,16 @@ fi
 
 echo "Installing Python dependencies..."
 poetry install --with dev
-pipx inject poetry poetry-plugin-shell
+if ! command -v poetry shell &> /dev/null; then
+  echo "Poetry shell not found. Injecting with pipx."
+	pipx inject poetry poetry-plugin-shell
+fi
 
 echo "Building base Python image..."
 make base
 
 echo "✅ Setup complete! You can now run:"
 echo "poetry shell      # Activate the virtual environment"
-echo "make backend  # Start the backend server"
+echo "make backend      # Start the backend server"
 echo "make test         # Run tests"
-echo "make base      # Rebuild base python image"
+echo "make base         # Rebuild base python image"
